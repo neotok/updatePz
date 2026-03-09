@@ -1,243 +1,147 @@
-# Notes de mise à jour - Project Zomboid
-
-## Recommandation générale
-Comme toujours, il est recommandé de créer une nouvelle sauvegarde sans mods après les mises à jour. Les mises à jour corrigent des bugs et introduisent de nouveaux changements qui peuvent ne pas être compatibles avec les anciennes sauvegardes, surtout celles antérieures au dernier patch.
-
----
-
-## Comment s’abonner à la branche bêta Unstable ?
-1. Faites un clic droit sur Project Zomboid dans votre bibliothèque Steam.
-2. Sélectionnez "Propriétés".
-3. Sous "Version du jeu et Bêtas", sélectionnez "Unstable".
+### Résumé des derniers changements (9 mars 2026)
+**Nouveautés majeures** :
+- 5 nouvelles armes à feu (JS-14, JS-3T, L92, L94, MSR7T, Trapper Carbine) avec leurs accessoires et recettes de réparation.
+- 4 nouveaux modes de jeu (Outbreak, Extinction, Rising) + rééquilibrage du mode Apocalypse.
+- Améliorations MP : optimisation des zones animales, corrections de bugs de synchronisation (vêtements, positions, animations).
+- Équilibrage des outils, du loot, et corrections de bugs (plus de 70 fixes).
 
 ---
 
-## Nouveautés
-
-### Modes de jeu
-- Les modes de jeu ont été rééquilibrés et mis à jour, à l’exception des modes **Apocalypse** et **Bac à sable personnalisé**, remplacés par de nouvelles versions.
-  - **Apocalypse** : Mode canon lore, représentant ce qui s’est réellement passé le 9 juillet 1993.
-    - Suppression de la réapparition des zombies.
-    - Réduction de l’impact des tensions et inconforts musculaires.
-    - Taux de croissance des animaux plus réalistes.
-    - Niveaux de butin ajustés.
-  - **Outbreak** : Expérience accélérée, moins d’investissement en temps pour la progression.
-  - **Extinction** : Expérience hardcore brutale, destinée aux joueurs expérimentés.
-  - **Rising** : Plus de temps pour explorer, construire et créer.
-  - **Bac à sable personnalisé** : Permet de personnaliser les paramètres selon le style de jeu.
-
-### Armes à feu
-- **Nouveaux modèles** :
-  - JS-14 Rifle (5.56x45mm)
-  - JS-3T Tactical Shotgun (Calibre 12)
-  - L92 Carbine (.357 Magnum)
-  - L94 Rifle (.30-30)
-  - MSR7T Tactical Rifle (7.62x51mm)
-  - Trapper Carabine (.45 ACP)
-
-### Autres ajouts
-- Bonus de vitesse de lecture lorsque le personnage est assis.
-- Nouveau prototype de distribution de butin dans l’armurerie chez Stendo.
-- Nouveaux symboles de carte pour les animaux.
-- Prototype de visée au gamepad (en cours de développement).
-- Option pour activer/désactiver le calque visuel des zones d’élevage.
-- Sélection multiple d’objets dans les menus des postes de travail avec **Maj + Clic**.
-- Renommage de l’option "Pause quand le focus est perdu" pour plus de clarté.
-
-### Effets sonores
-- Ajout de nouveaux sons pour :
-  - Petite porte métallique
-  - Porte-manteau
-  - Carton et Grand carton
+### Détails complets des changements
 
 ---
 
-## Équilibrage
+#### **Nouveautés**
+- **Modes de jeu révisés** :
+  - **"Apocalypse"** : Mode canon lore (9 juillet 1993), sans résurrection de zombies, avec des ajustements réalistes (croissance animale, loot, etc.).
+  - **"Outbreak"** : Expérience accélérée, moins de temps pour progresser.
+  - **"Extinction"** : Mode hardcore pour joueurs expérimentés (attention aux sprinteurs).
+  - **"Rising"** : Plus de temps pour explorer et construire.
+  - **"Custom Sandbox"** : Toujours disponible pour une personnalisation totale.
 
-### Outils
-- Suppression des exigences d’outil pour plusieurs tuiles lors de leur ramassage.
-- Suppression de la dégradation des tournevis dans les recettes liées à l’électricité.
-- Réduction de l’usure des outils conçus pour couper des arbres.
-- Les houes de jardin peuvent désormais enlever les souches.
+- **Armes à feu** :
+  - JS-14 Rifle (5.56x45mm), JS-3T Tactical Shotgun (12 Gauge), L92 Carbine (.357 Magnum), L94 Rifle (.30-30), MSR7T Tactical Rifle (7.62x51mm), Trapper Carbine (.45 ACP).
+  - Intégration dans les tables de loot et recettes de réparation.
 
-### Tables de butin
-- Correction des entrées manquantes et des Roomdefs incorrectes.
-- Ajout des Roomdefs :
-  - `policeswat`, `prisonlocker`, `swatlocker`
-  - `metalfabrication`, `metalfabricationstorage`
-  - `sewingfactory`
-- Intégration des nouvelles armes à feu dans les listes de butin.
-- Ajout du modificateur `gunStorage` pour garantir l’apparition des chargeurs et munitions appropriés.
-- Mise à jour du nombre maximal de vitrines dans l’armurerie.
-- Création d’une définition de salle pour l’école de musique.
-- Les micro-ondes peuvent désormais faire apparaître une tasse de café et un plateau-repas.
-
-### Divers
-- Réduction de la taille du cône de lumière des lampes de poche.
-- Augmentation de la taille du cône de lumière des phares de véhicules.
-- Rendu du mouvement de tête plus progressif lorsque le personnage est assis.
-- Réduction de l’impact des cadavres d’animaux sur les véhicules.
-- Équilibrage des tensions musculaires du cou causées par certaines activités de couture.
-- La collecte de fluides est désormais limitée au poids maximal de transport.
-- Suppression de la possibilité de dormir sur les toilettes.
+- **Autres ajouts** :
+  - Bonus de vitesse de lecture en position assise.
+  - Nouveau prototype de loot dans le magasin d’armes *Stendo’s*.
+  - Symboles de carte pour les animaux.
+  - Prototype de visée au gamepad (réticule + ralentissement sur cible).
+  - Option pour afficher/masquer les zones de bétail.
+  - Sélection multiple dans les menus d’atelier avec **Shift + Clic**.
+  - Renommage de l’option *"Pause when focus is lost"* (activée par défaut).
+  - Nouveaux SFX pour les grands conteneurs (porte métallique, porte-clothes, cartons).
 
 ---
 
-## Multijoueur
+#### **Équilibrage**
+- **Outils** :
+  - Suppression des exigences d’outils pour certains carrelages.
+  - Plus d’usure pour les tournevis dans les recettes électriques.
+  - Réduction de l’usure des outils pour couper des arbres.
+  - Les houes peuvent désormais enlever les souches.
 
-### Optimisations
-- Optimisation de la zone de désignation des animaux.
-- Masquage temporaire de l’authentification Google et de la double authentification.
-- Réduction du rayon sonore des véhicules.
+- **Loot** :
+  - Ajout des *roomdefs* `policeswat`, `prisonlocker`, `swatlocker`, `sewingfactory`, `musicschool`.
+  - Ajout de munitions dans les casiers militaires, de rouleaux de tissu dans les magasins de couture, etc.
+  - Intégration des nouvelles armes dans les tables de loot.
+  - Les micro-ondes peuvent générer du café et des plats TV dinner.
 
-### Corrections
-- Correction des attaques au corps à corps traversant les zombies près des véhicules.
-- Correction de multiples erreurs côté serveur et client.
-- Correction de la désynchronisation des vêtements.
-- Correction d’un plantage du serveur.
-- Correction de la position incorrecte des personnages distants près des obstacles.
-- Correction de la capacité du coffre de voiture ne se mettant pas à jour après des dégâts.
-- Correction du son d’alarme de la montre jouant en boucle.
-- Correction des champignons comestibles recevant l’étiquette "poison".
-- Correction de l’impossibilité d’interagir avec le composteur.
-- Correction des cordes attachées aux animaux.
-- Correction de l’animation `HitReaction` manquante pour les joueurs distants.
-- Correction de la disparition des taches de boue et de sang sur les vêtements.
-- Correction de la désynchronisation de la position des personnages distants sur l’axe Z.
-- Correction des dégâts subis en grimpant/descendant une corde d’évasion.
-- Correction de l’exception lors de la suppression de graffitis avec un objet à deux mains.
-- Correction du savon n’étant pas utilisé en multijoueur.
-- Correction de la duplication des bonbonnes de propane.
-- Correction de l’animation de chargement de chargeur sans fin.
-- Correction de la duplication de nourriture avec `.replaceOnCooked()`.
-- Correction du fusil à double canon consommant 2 cartouches en un seul tir.
-- Correction de l’impossibilité de peindre les panneaux.
-- Correction de l’absence de douleur lors de la désinfection des plaies.
-- Correction de l’impossibilité de ramasser les chapeaux/lunettes des zombies.
-- Correction du rendu du sol construit sur des tuiles d’eau.
-- Correction des objets manquants sur les cadavres de zombies bloqués.
-- Correction des voitures restant bloquées en l’air.
-- Correction de l’absence de notification de gain d’XP lors de la fabrication d’objets.
-- Correction de l’impossibilité de scier des bûches via le menu contextuel.
-- Correction des dégâts de chute et de marche à travers les arbres ne se synchronisant pas.
-- Correction de l’arme à feu ne s’armant pas lors de l’insertion d’un chargeur.
-- Correction du bouton Retour ne stoppant pas le serveur lors du démarrage.
-- Correction de l’impossibilité d’attribuer un rôle à un utilisateur non présent dans la liste blanche.
-- Correction du démontage d’une pile de lecteurs CD consommant 2 objets par action.
-- Correction de l’arme de mêlée tenue à la déconnexion empêchant le gain d’XP de maintenance.
-- Correction des sons de cuisson ne jouant pas.
-- Correction des sons de marche pieds nus et en chaussures.
-- Correction des portes de garage tremblant lors du déverrouillage.
-- Correction des sons de cuisson s’interrompant lors de la cuisson de plusieurs éléments.
-- Correction des sons de cuisson au barbecue ne jouant pas en multijoueur.
-- Correction des équipements de protection n’augmentant pas le niveau d’inconfort.
-- Correction de l’impossibilité de supprimer un utilisateur de la liste des utilisateurs.
-- Correction de l’option "Retirer de la liste blanche après la mort" ne fonctionnant pas.
-- Correction de l’impossibilité d’augmenter le niveau d’XP de Fitness via le panneau de stats.
-- Correction des dégâts aux pieds en conduisant sur du verre brisé pieds nus.
-- Correction des problèmes avec les symboles partagés de la carte en jeu.
-- Correction de l’option "Déguisements de nom d’utilisateur".
-- Correction de l’XP de maintenance manquante pour les armes avec plus de 20 `.conditionLowerChanceOneIn`.
-- Correction des sons de placement d’objets dans les conteneurs ne jouant pas en multijoueur.
+- **Autres** :
+  - Réduction de la taille du cône de lumière des lampes torches, augmentation pour les phares de véhicule.
+  - Mouvement de tête plus progressif en position assise.
+  - Impact réduit des cadavres d’animaux sur les véhicules.
+  - Équilibrage de la fatigue musculaire (couture).
+  - La collecte de fluides est désormais limitée au poids maximal du joueur.
+  - Impossibilité de dormir sur les toilettes.
 
 ---
 
-## Corrections générales
+#### **Multijoueur (MP)**
+- **Optimisations** :
+  - Mise à jour des zones animales optimisée.
+  - Masquage temporaire de l’authentification Google/2FA (retour prévu après correction).
+  - Réduction du rayon sonore des véhicules.
 
-- Correction d’une faille de sécurité signalée par **copiumsawsed**.
-- Correction de plusieurs entrées RMC pour les toilettes.
-- Correction des zombies ragdolls se retournant avant de se relever.
-- Correction des zombies sautant lorsqu’on leur tire dessus.
-- Correction du spam de la touche Accroupi accélérant le rechargement.
-- Correction des joueurs restant bloqués dans les véhicules en entrant par une porte ouverte tout en visant.
-- Correction des pompes à carburant se réinitialisant.
-- Correction des télécommandes de TV ayant 1,67 % de chance de rendre une pile au lieu de 60 %.
-- Correction du cône de vision invisible sur Mac.
-- Correction des pilules de caféine restaurant 100 % de la fatigue au lieu de 4 %.
-- Correction du maintien de la touche ALT augmentant drastiquement les dégâts des armes.
-- Correction des poussées infinies.
-- Correction du Citronnelle et du Gingembre ne réduisant pas la maladie alimentaire.
-- Correction de l’obtention d’une quantité différente de bûches des arbres en solo et en multijoueur.
-- Correction de l’impossibilité de jeter des objets par la fenêtre de voiture.
-- Correction de l’impossibilité de recharger depuis un conteneur non équipé.
-- Correction de l’erreur lors de la prise de pièces de moteur avec une clé dans un sac non équipé.
-- Correction du spam d’erreur dans `LiveAnimationTrackEntries`.
-- Correction de l’erreur lors de la construction d’escaliers sur un feu.
-- Correction des éclaboussures de sang apparaissant au mauvais endroit.
-- Correction de l’impossibilité de lire avec "Minutes par page" réglé à 0.0.
-- Correction de la texture de brique recouvrant les volets.
-- Correction de l’impossibilité de cliquer sur les portes de garage transparentes.
-- Correction des incendies/inflammations invisibles sur les tuiles brûlées.
-- Correction de la carte de profondeur incorrecte pour de nombreux objets.
-- Correction des tuiles avec neige apparaissant à l’intérieur.
-- Correction des poussins ne laissant tomber que des têtes lors du boucherage.
-- Correction de l’info-bulle pour le séchoir à cuir moyen.
-- Correction des serviettes mouillées séchant sous la pluie.
-- Correction des pièces de mangeoire démontées collectant de l’eau.
-- Correction de plusieurs problèmes avec la consommation de savon.
-- Correction de plusieurs problèmes avec le lavage du personnage.
-- Correction du personnage répétant l’action de boire.
-- Correction du démontage des électroniques dans l’inventaire donnant moins d’XP.
-- Correction des personnages accumulant de l’XP de Fitness/Course en dormant.
-- Correction des paramètres incorrects de coupure aléatoire d’électricité.
-- Correction du filet de pêche avec appâts produisant trop de poissons.
-- Correction des barricades flottantes lors de la destruction d’un mur.
-- Correction de la mauvaise fenêtre étant barricadée.
-- Correction du contour de fenêtre de mur découpé non rendu.
-- Correction de la découpe de mur étrange entre les bâtiments.
-- Correction de l’impossibilité de construire des étagères sur les sols construits.
-- Correction de l’impossibilité de construire des étagères sur les murs d’angle.
-- Correction des casseroles détruites lors de l’utilisation du dernier riz restant.
-- Correction des œufs ne gelant pas.
-- Correction des lunettes de prescription ne supprimant pas le malus de fouille.
-- Correction des voitures garées ne bougeant pas lorsqu’elles étaient poussées.
-- Correction des mannequins ne se mettant pas à jour visuellement.
-- Correction des personnages n’ayant pas froid dans le défi **A Realy CD DA**.
-- Correction du bug de duplication des balles de foin.
-- Correction de la duplication de cassettes VHS.
-- Correction des informations sur les ratons laveurs mâles.
-- Correction du texte de l’interface de craft/construction non espacé.
-- Correction des sons manquants pour les clôtures et pièges.
-- Correction de l’impossibilité de s’asseoir sur les toilettes orientées vers le nord.
-- Correction des vitres murales cachant le modèle du personnage.
-- Correction du rendu des bouches d’aération.
-- Correction de l’impossibilité de démonter certains pianos.
-- Correction de la possibilité de traverser une clôture pour s’asseoir.
-- Correction des petits rochers bloquant la vision.
-- Correction des petites pierres ayant une collision.
-- Correction du personnage étant parfois ignifugé.
-- Correction des squelettes d’animaux produisant des os à l’infini.
-- Correction de la maladie des cadavres ne diminuant pas avec un masque à gaz.
-- Correction des masques à gaz fournissant 100 % de défense après retrait des filtres.
-- Correction de l’impossibilité de ramasser les cadavres avec un poids "Très faible".
-- Correction du plantage lors du meurtre d’animaux avec une bombe artisanale.
-- Correction de l’icône de la profession d’officier des pompiers.
-- Correction des seaux forgés non disponibles pour les masses à seau.
+- **Corrections** :
+  - Synchronisation des vêtements et positions des joueurs.
+  - Crashs serveurs et erreurs côté client.
+  - Animation *HitReaction* manquante pour les joueurs distants.
+  - Disparition des taches de sang/saleté sur les vêtements.
+  - Dégâts lors de l’escalade des cordes.
+  - Duplication de propane et de munitions.
+  - Animations de rechargement infinies.
+  - Bugs de cuisine (duplication, sons manquants).
+  - Problèmes de synchronisation des dégâts (chutes, arbres).
+  - Bugs de peinture des panneaux et de récupération des chapeaux/lunettes de zombies.
+  - Voitures bloquées en l’air.
+  - XP de maintenance manquante pour les armes.
+  - Bugs de partage de symboles sur la carte.
 
 ---
 
-## Technique/Debug
-
-- Nettoyage de la localisation (fichiers de traduction en JSON).
-- Mise à jour des bibliothèques Mac et Linux.
-- Correction de l’erreur du menu contextuel en mode debug.
-- Mise à jour du fichier txt de la console.
-- Correction du plafond dur pour la Fitness en mode GodMode.
+#### **Corrections générales**
+- **Sécurité** : Vulnérabilité signalée par *copiumsawsed* corrigée.
+- **Bugs divers** :
+  - Zombies ragdolls et sauts anormaux.
+  - Rechargement accéléré en spammant *Accroupi*.
+  - Pilules de caféine restaurant 100% de fatigue (au lieu de 4%).
+  - Dégâts augmentés en maintenant *ALT*.
+  - Citronnelle et gingembre inefficaces contre les nausées.
+  - Quantité de bois différente en SP/MP.
+  - Impossibilité de lâcher des objets par les fenêtres de voiture.
+  - Rechargement bloqué si les munitions sont dans un sac non équipé.
+  - Bugs de texture (briques sur les volets, neige en intérieur).
+  - Poulets ne lâchant que des têtes (ajout de viande).
+  - Serviettes mouillées séchant sous la pluie.
+  - Consommation anormale de savon.
+  - Bugs de lavage et de boisson répétée.
+  - XP de fitness accumulée en dormant.
+  - Filets de pêche trop productifs.
+  - Barricades flottantes et fenêtres mal sélectionnées.
+  - Bugs de construction (étagères, pianos).
+  - Œufs ne gelant pas.
+  - Lunettes ne supprimant pas le malus de recherche.
+  - Voitures garées immobiles lors de chocs.
+  - Duplication de VHS et de balles de foin.
+  - Raccoons mâles agressifs entre eux.
+  - Sons manquants (griffes sur clôtures, armoires métalliques).
+  - Toilettes nord inutilisables.
+  - Collisions avec les petits cailloux.
+  - Immunité au feu occasionnelle.
+  - Squelettes d’animaux générant des os infinis.
+  - Maladie des cadavres non réduite avec masque à gaz.
+  - Impossibilité de ramasser des cadavres avec un poids très faible.
+  - Crash lors de l’utilisation de bombes artisanales sur les animaux.
+  - Icône incorrecte pour *Fire Officer*.
+  - Seaux forgés indisponibles pour les massues.
 
 ---
 
-## Mods
+#### **Technique/Debug**
+- Nettoyage des fichiers de localisation (passage au JSON).
+- Mise à jour des libs Mac/Linux.
+- Correction des erreurs de menu contextuel en mode debug.
+- Ajout des specs PC dans le fichier *Console.txt*.
+- Suppression du plafond de *Fitness* en mode Dieu.
 
-- Nouveau guide/modification des mods.
-- Correction de la détection des dossiers `COMMON/VERSION`.
-- Correction de la traduction des mods et de la logique de vérification des fichiers.
-- Ajout du support de traduction pour `mod.info`.
-- Correction de la comparaison des fichiers de mod entre client et serveur.
-- Correction de la logique `ModID` et `WorkshopID`.
-- Correction d’un bug avec la vérification null des mods.
-- Correction du panneau d’informations des mods.
-- Correction de l’affichage des mods dans le menu Pause.
-- Correction du chemin des fichiers d’icône/affiche des mods sur Linux.
-- Ajout de `.glb` pour le surveillant de fichiers de modèle.
-- Amélioration des messages d’erreur pour les mods manquants.
-- Correction de la génération de la description `WorkshopItem`.
+---
+
+#### **Modding**
+- Nouveau guide/changelog pour les mods.
+- **Corrections** :
+  - Détection des dossiers `COMMON/VERSION`.
+  - Logique de traduction et de comparaison des fichiers mod.
+  - Support des traductions pour `mod.info`.
+  - Bugs d’affichage des mods dans le menu pause.
+  - Chemins des icônes/posters sous Linux.
+  - Ajout du support `.glb` pour les modèles 3D.
+  - Messages d’erreur améliorés pour les mods manquants.
+  - Génération des descriptions d’ateliers et support des images 512x512.
+
+---
+**Note** : Il est recommandé de créer une nouvelle partie sans mods après les mises à jour pour éviter les incompatibilités.
+
+---
+Besoin de précisions sur un point en particulier ?
