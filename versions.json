@@ -8,5 +8,11 @@
       15,
       0
     ]
+  },
+  {
+    "name": "preview.png",
+    "path": "preview.png",
+    "isVersion": false,
+    "version": null
   }
 ]
