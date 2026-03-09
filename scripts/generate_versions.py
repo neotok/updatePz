@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'versions.json'
+INDEX_FILE = ROOT / 'index.html'
 VERSION_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)$')
 EXCLUDED_FILES = {'README.md', 'index.html', 'versions.json', '.nojekyll'}
 EXCLUDED_DIRS = {'.git', '.github', 'scripts'}
@@ -60,6 +61,13 @@ def main() -> None:
 
     OUTPUT.write_text(json.dumps(files, ensure_ascii=False, indent=2), encoding='utf-8')
 
+    latest_version = files[0]['name'] if files else 'N/A'
+    index_content = INDEX_FILE.read_text(encoding='utf-8')
+    updated_index_content = re.sub(r'Version\s*:\s*[^\"<]*', f'Version : {latest_version}', index_content)
+
+    if updated_index_content != index_content:
+        INDEX_FILE.write_text(updated_index_content, encoding='utf-8')
+
 
 if __name__ == '__main__':
-  main()
+        main()

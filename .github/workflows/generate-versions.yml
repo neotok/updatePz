@@ -31,19 +31,18 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'maj versions.json'
-          file_pattern: versions.json
+          file_pattern: versions.json index.html
 
       - name: Notify Discord on success
         if: ${{ success() && env.DISCORD_WEBHOOK_URL != '' }}
         env:
           PAGE_URL: https://neotok.github.io/updatePz/
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           latest_version=$(python -c "import json; data=json.load(open('versions.json', encoding='utf-8')); print(data[0]['name'] if data else 'N/A')")
 
           payload=$(cat <<EOF
           {
-            "content": "✅ updatePz mis a jour avec succes.\nVersion: ${latest_version}\nPage: ${PAGE_URL}\nWorkflow: ${RUN_URL}"
+            "content": "Traduction des mises a jours de Project Zomboid\nVersion : ${latest_version}\n${PAGE_URL}"
           }
           EOF
           )
