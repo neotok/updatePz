@@ -12,6 +12,8 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    env:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     steps:
       - name: Checkout
@@ -32,9 +34,8 @@ jobs:
           file_pattern: versions.json
 
       - name: Notify Discord on success
-        if: ${{ success() && secrets.DISCORD_WEBHOOK_URL != '' }}
+        if: ${{ success() && env.DISCORD_WEBHOOK_URL != '' }}
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           PAGE_URL: https://neotok.github.io/updatePz/
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
