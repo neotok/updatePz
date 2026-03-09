@@ -30,3 +30,28 @@ jobs:
         with:
           commit_message: 'maj versions.json'
           file_pattern: versions.json
+
+      - name: Notify Discord on success
+        if: ${{ success() && secrets.DISCORD_WEBHOOK_URL != '' }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PAGE_URL: https://neotok.github.io/updatePz/
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          latest_version=$(python -c "import json; data=json.load(open('versions.json', encoding='utf-8')); print(data[0]['name'] if data else 'N/A')")
+
+          payload=$(cat <<EOF
+          {
+            "content": "✅ updatePz mis a jour avec succes.\nVersion: ${latest_version}\nPage: ${PAGE_URL}\nWorkflow: ${RUN_URL}"
+          }
+          EOF
+          )
+
+          curl \
+            --fail \
+            --show-error \
+            --silent \
+            -H "Content-Type: application/json" \
+            -X POST \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
