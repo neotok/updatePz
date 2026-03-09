@@ -10,6 +10,12 @@
     ]
   },
   {
+    "name": "header.jpg",
+    "path": "header.jpg",
+    "isVersion": false,
+    "version": null
+  },
+  {
     "name": "preview.png",
     "path": "preview.png",
     "isVersion": false,
