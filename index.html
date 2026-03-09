@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang='fr'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>updatePz - Historique des versions</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #111827;
+        --panel: #1f2937;
+        --panel-soft: #374151;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #60a5fa;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(220px, 300px) 1fr;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--panel-soft);
+        background: var(--panel);
+        padding: 16px;
+      }
+
+      .title {
+        margin: 0 0 8px;
+        font-size: 1.2rem;
+      }
+
+      .subtitle {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .version-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .version-item button {
+        width: 100%;
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--panel-soft);
+        border-radius: 8px;
+        padding: 10px;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .version-item button.active {
+        border-color: var(--accent);
+        color: #ffffff;
+      }
+
+      .content {
+        padding: 16px;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .toolbar button,
+      .toolbar a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--panel);
+        color: var(--text);
+        border: 1px solid var(--panel-soft);
+        border-radius: 8px;
+        padding: 8px 12px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .toolbar button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .markdown-content {
+        margin: 0;
+        padding: 16px;
+        border: 1px solid var(--panel-soft);
+        border-radius: 8px;
+        background: #0b1220;
+        overflow: auto;
+        line-height: 1.5;
+      }
+
+      .markdown-content h1,
+      .markdown-content h2,
+      .markdown-content h3,
+      .markdown-content h4,
+      .markdown-content h5,
+      .markdown-content h6 {
+        margin-top: 1.2em;
+        margin-bottom: 0.5em;
+      }
+
+      .markdown-content p {
+        margin: 0.6em 0;
+      }
+
+      .markdown-content ul {
+        padding-left: 1.4em;
+      }
+
+      .markdown-content code {
+        background: #111827;
+        border: 1px solid var(--panel-soft);
+        border-radius: 6px;
+        padding: 1px 5px;
+        font-family: Consolas, 'Courier New', monospace;
+      }
+
+      .markdown-content pre {
+        margin: 0.8em 0;
+        padding: 12px;
+        border: 1px solid var(--panel-soft);
+        border-radius: 8px;
+        background: #0a0f1a;
+        overflow: auto;
+      }
+
+      .markdown-content pre code {
+        border: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+      .markdown-content hr {
+        border: 0;
+        border-top: 1px solid var(--panel-soft);
+        margin: 1em 0;
+      }
+
+      .error {
+        color: #fca5a5;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: 0;
+          border-bottom: 1px solid var(--panel-soft);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class='layout'>
+      <aside class='sidebar'>
+        <h1 class='title'>updatePz</h1>
+        <p class='subtitle'>Versions triees de la plus recente a la plus ancienne.</p>
+        <ul id='versionList' class='version-list'></ul>
+      </aside>
+
+      <main class='content'>
+        <div class='toolbar'>
+          <button id='prevBtn' type='button'>Version precedente</button>
+          <button id='nextBtn' type='button'>Version suivante</button>
+          <a id='rawLink' href='#' target='_blank' rel='noreferrer'>Ouvrir le fichier brut</a>
+        </div>
+        <article id='fileContent' class='markdown-content'>Chargement...</article>
+      </main>
+    </div>
+
+    <script>
+      const versionListEl = document.getElementById('versionList');
+      const fileContentEl = document.getElementById('fileContent');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const rawLink = document.getElementById('rawLink');
+
+      let files = [];
+      let currentIndex = 0;
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function parseInlineMarkdown(text) {
+        let value = escapeHtml(text);
+        value = value.replace(/`([^`]+)`/g, '<code>$1</code>');
+        value = value.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        value = value.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+        return value;
+      }
+
+      function markdownToHtml(markdownText) {
+        const lines = markdownText.replace(/\r\n?/g, '\n').split('\n');
+        const htmlParts = [];
+        let inCodeBlock = false;
+        let codeBuffer = [];
+        let inList = false;
+        let paragraphBuffer = [];
+
+        function flushParagraph() {
+          if (paragraphBuffer.length === 0) {
+            return;
+          }
+
+          const paragraph = paragraphBuffer.join(' ').trim();
+
+          if (paragraph) {
+            htmlParts.push('<p>' + parseInlineMarkdown(paragraph) + '</p>');
+          }
+
+          paragraphBuffer = [];
+        }
+
+        function closeListIfNeeded() {
+          if (inList) {
+            htmlParts.push('</ul>');
+            inList = false;
+          }
+        }
+
+        for (const rawLine of lines) {
+          const line = rawLine.trimEnd();
+
+          if (line.startsWith('```')) {
+            if (!inCodeBlock) {
+              flushParagraph();
+              closeListIfNeeded();
+              inCodeBlock = true;
+              codeBuffer = [];
+            } else {
+              const codeText = escapeHtml(codeBuffer.join('\n'));
+              htmlParts.push('<pre><code>' + codeText + '</code></pre>');
+              inCodeBlock = false;
+              codeBuffer = [];
+            }
+
+            continue;
+          }
+
+          if (inCodeBlock) {
+            codeBuffer.push(rawLine);
+            continue;
+          }
+
+          if (/^---+$/.test(line)) {
+            flushParagraph();
+            closeListIfNeeded();
+            htmlParts.push('<hr>');
+            continue;
+          }
+
+          const titleMatch = line.match(/^(#{1,6})\s+(.+)$/);
+
+          if (titleMatch) {
+            flushParagraph();
+            closeListIfNeeded();
+            const level = titleMatch[1].length;
+            const titleText = parseInlineMarkdown(titleMatch[2].trim());
+            htmlParts.push('<h' + level + '>' + titleText + '</h' + level + '>');
+            continue;
+          }
+
+          const listMatch = line.match(/^[-*]\s+(.+)$/);
+
+          if (listMatch) {
+            flushParagraph();
+
+            if (!inList) {
+              htmlParts.push('<ul>');
+              inList = true;
+            }
+
+            htmlParts.push('<li>' + parseInlineMarkdown(listMatch[1]) + '</li>');
+            continue;
+          }
+
+          if (!line.trim()) {
+            flushParagraph();
+            closeListIfNeeded();
+            continue;
+          }
+
+          closeListIfNeeded();
+          paragraphBuffer.push(line.trim());
+        }
+
+        flushParagraph();
+        closeListIfNeeded();
+
+        if (inCodeBlock) {
+          const codeText = escapeHtml(codeBuffer.join('\n'));
+          htmlParts.push('<pre><code>' + codeText + '</code></pre>');
+        }
+
+        return htmlParts.join('');
+      }
+
+      function renderList() {
+        versionListEl.innerHTML = '';
+
+        files.forEach((file, index) => {
+          const item = document.createElement('li');
+          item.className = 'version-item';
+
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = file.name;
+
+          if (index === currentIndex) {
+            button.classList.add('active');
+          }
+
+          button.addEventListener('click', () => {
+            currentIndex = index;
+            updateView();
+          });
+
+          item.appendChild(button);
+          versionListEl.appendChild(item);
+        });
+      }
+
+      async function renderFile() {
+        const currentFile = files[currentIndex];
+
+        if (!currentFile) {
+          fileContentEl.textContent = 'Aucun fichier a afficher.';
+          rawLink.href = '#';
+          return;
+        }
+
+        const fileUrl = encodeURI(currentFile.path);
+        rawLink.href = fileUrl;
+
+        try {
+          const response = await fetch(fileUrl, { cache: 'no-cache' });
+
+          if (!response.ok) {
+            throw new Error('Impossible de charger le fichier ' + currentFile.name);
+          }
+
+          const text = await response.text();
+          fileContentEl.classList.remove('error');
+          fileContentEl.innerHTML = markdownToHtml(text);
+          document.title = 'updatePz - ' + currentFile.name;
+        } catch (error) {
+          fileContentEl.classList.add('error');
+          fileContentEl.textContent = error.message;
+        }
+      }
+
+      function updateNavigation() {
+        prevBtn.disabled = currentIndex >= files.length - 1;
+        nextBtn.disabled = currentIndex <= 0;
+      }
+
+      async function updateView() {
+        renderList();
+        updateNavigation();
+        await renderFile();
+      }
+
+      async function boot() {
+        try {
+          const response = await fetch('./versions.json', { cache: 'no-cache' });
+
+          if (!response.ok) {
+            throw new Error('Le fichier versions.json est introuvable.');
+          }
+
+          files = await response.json();
+
+          if (!Array.isArray(files) || files.length === 0) {
+            throw new Error('Aucun fichier version detecte.');
+          }
+
+          currentIndex = 0;
+          await updateView();
+        } catch (error) {
+          fileContentEl.classList.add('error');
+          fileContentEl.textContent = error.message;
+        }
+      }
+
+      prevBtn.addEventListener('click', async () => {
+        if (currentIndex < files.length - 1) {
+          currentIndex += 1;
+          await updateView();
+        }
+      });
+
+      nextBtn.addEventListener('click', async () => {
+        if (currentIndex > 0) {
+          currentIndex -= 1;
+          await updateView();
+        }
+      });
+
+      void boot();
+    </script>
+  </body>
+</html>
